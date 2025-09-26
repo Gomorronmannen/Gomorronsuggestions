@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suggestion Box</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form id="suggestionForm">
+    <input type="hidden" name="access_key" value="8da1488f-83d5-4579-8419-3d04d139efc1">
+    <input type="text" name="name" placeholder="Your Name (optional)">
+    <textarea name="message" placeholder="Your Suggestion" required></textarea>
+    <button type="submit">Send Suggestion</button>
+    <div id="status"></div>
+  </form>
+
+  <footer>
+    &copy; 2025 Gomorron Suggestions. Built with ❤️ by <a href="#">Gomorronmannen</a>.
+  </footer>
+
+  <script>
+    const form = document.getElementById('suggestionForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // prevent default page reload
+
+      const formData = new FormData(form);
+      status.textContent = 'Submitting…';
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const json = await res.json().catch(() => ({}));
+
+        if (res.status === 200 || json.success) {
+          status.textContent = 'Suggestion submitted! Thank you!';
+          form.reset(); // clear the form
+        } else {
+          status.textContent = 'Submission failed — please try again.';
+        }
+      } catch (err) {
+        status.textContent = 'Network error — submission failed.';
+      }
+    });
+  </script>
+
+</body>
+</html>

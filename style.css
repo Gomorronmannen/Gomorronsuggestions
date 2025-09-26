@@ -1,0 +1,170 @@
+/* ================================
+   GLOBAL STYLES
+================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* dark cyberpunk gradient */
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+}
+
+/* floating animated neon circles */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.6;
+    animation: float 18s infinite alternate ease-in-out;
+}
+
+body::before {
+    width: 400px;
+    height: 400px;
+    background: #ff00ff; /* neon magenta */
+    top: -100px;
+    left: -100px;
+}
+
+body::after {
+    width: 500px;
+    height: 500px;
+    background: #00ffff; /* neon cyan */
+    bottom: -150px;
+    right: -150px;
+    animation-duration: 22s;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) translateX(0px);}
+    50% { transform: translateY(50px) translateX(30px);}
+    100% { transform: translateY(0px) translateX(0px);}
+}
+
+/* ================================
+   FORM STYLES
+================================ */
+form {
+    backdrop-filter: blur(20px) saturate(200%);
+    background-color: rgba(20, 20, 30, 0.5);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 40px 30px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    animation: slideIn 1s ease-out forwards;
+    box-shadow: 0 0 40px rgba(0,255,255,0.2), 0 0 20px rgba(255,0,255,0.2);
+}
+
+@keyframes slideIn {
+    0% { transform: translateY(-50px); opacity: 0;}
+    100% { transform: translateY(0); opacity: 1;}
+}
+
+/* INPUTS & TEXTAREA */
+input[type="text"],
+textarea {
+    background: rgba(30, 30, 40, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 12px;
+    color: #fff;
+    font-size: 14px;
+    transition: 0.3s ease;
+    outline: none;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #00ffff; /* neon cyan highlight */
+    background-color: rgba(40, 40, 60, 0.7);
+    transform: scale(1.02);
+}
+
+/* BUTTON */
+button {
+    background: linear-gradient(135deg, #ff00ff, #00ffff); /* neon gradient */
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+    backdrop-filter: blur(5px);
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 25px #00ffff, 0 0 35px #ff00ff;
+}
+
+/* STATUS MESSAGE */
+#status {
+    font-size: 14px;
+    text-align: center;
+    margin-top: -10px;
+    min-height: 20px;
+    color: #0ff; /* neon cyan */
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+    100% { text-shadow: 0 0 20px #0ff, 0 0 30px #0ff; }
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+    position: absolute;
+    bottom: 10px;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.5px;
+}
+
+footer a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #ff00ff; /* neon pink hover */
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 420px) {
+    form {
+        width: 90%;
+        padding: 30px 20px;
+    }
+}
