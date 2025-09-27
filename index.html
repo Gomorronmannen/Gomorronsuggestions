@@ -30,25 +30,29 @@
   <meta name="twitter:image" content="https://files.catbox.moe/4ar4d2.gif" />
 </head>
 <body>
-  <header>
-    <h1>💡 Gomorron Suggestions</h1>
-    <p>Have an idea? Share it directly with <strong>Gomorronmannen</strong>.</p>
-  </header>
 
-  <main>
-    <form id="suggestionForm" aria-label="Suggestion Form">
-      <input type="hidden" name="access_key" value="8da1488f-83d5-4579-8419-3d04d139efc1" />
+  <!-- Centered wrapper for header + form -->
+  <div class="center-wrap">
+    <header>
+      <h1>💡 Gomorron Suggestions</h1>
+      <p>Have an idea? Share it directly with <strong>Gomorronmannen</strong>.</p>
+    </header>
 
-      <label for="name">Your Name (optional)</label>
-      <input type="text" id="name" name="name" placeholder="Enter your name" />
+    <main>
+      <form id="suggestionForm" aria-label="Suggestion Form">
+        <input type="hidden" name="access_key" value="8da1488f-83d5-4579-8419-3d04d139efc1" />
 
-      <label for="message">Your Suggestion</label>
-      <textarea id="message" name="message" placeholder="Write your suggestion here..." required></textarea>
+        <label for="name">Your Name (optional)</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" />
 
-      <button type="submit">Send Suggestion</button>
-      <div id="status" role="status" aria-live="polite"></div>
-    </form>
-  </main>
+        <label for="message">Your Suggestion</label>
+        <textarea id="message" name="message" placeholder="Write your suggestion here..." required></textarea>
+
+        <button type="submit">Send Suggestion</button>
+        <div id="status" role="status" aria-live="polite"></div>
+      </form>
+    </main>
+  </div>
 
   <footer>
     <p>&copy; 2025 <strong>Gomorron Suggestions</strong>. Built with ❤️ by 
