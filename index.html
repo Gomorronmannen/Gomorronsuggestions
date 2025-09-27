@@ -1,77 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gomorron Suggestions</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 
   <!-- Embed preview (Open Graph & Twitter) -->
-  <meta name="title" content="Gomorron Suggestions">
-  <meta name="description" content="Submit your ideas and suggestions directly to Gomorronmannen.">
-  
-  <!-- Open Graph / Discord -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://gomorronmannen.github.io/Gomorronsuggestions/">
-  <meta property="og:title" content="Gomorron Suggestions">
-  <meta property="og:description" content="Submit your ideas and suggestions directly to Gomorronmannen.">
-  <meta property="og:image" content="https://files.catbox.moe/4ar4d2.gif"> <!-- Banner image -->
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta name="title" content="Gomorron Suggestions" />
+  <meta name="description" content="Submit your ideas and suggestions directly to Gomorronmannen." />
 
-  <!-- Optional icon preview -->
-  <meta property="og:image" content="https://files.catbox.moe/4ar4d2.gif">
-  <meta property="og:image:width" content="256">
-  <meta property="og:image:height" content="256">
+  <!-- Open Graph (Discord, Facebook) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gomorronmannen.github.io/Gomorronsuggestions/" />
+  <meta property="og:title" content="Gomorron Suggestions" />
+  <meta property="og:description" content="Submit your ideas and suggestions directly to Gomorronmannen." />
+  <meta property="og:image" content="https://files.catbox.moe/4ar4d2.gif" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <!-- Twitter (extra compatibility) -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Gomorron Suggestions">
-  <meta name="twitter:description" content="Submit your ideas and suggestions directly to Gomorronmannen.">
-  <meta name="twitter:image" content="https://files.catbox.moe/4ar4d2.gif">
+  <!-- Secondary Icon Preview -->
+  <meta property="og:image:alt" content="Gomorronmannen Logo" />
+  <link rel="icon" href="https://files.catbox.moe/4ar4d2.gif" type="image/gif" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gomorron Suggestions" />
+  <meta name="twitter:description" content="Submit your ideas and suggestions directly to Gomorronmannen." />
+  <meta name="twitter:image" content="https://files.catbox.moe/4ar4d2.gif" />
 </head>
 <body>
+  <header>
+    <h1>💡 Gomorron Suggestions</h1>
+    <p>Have an idea? Share it directly with <strong>Gomorronmannen</strong>.</p>
+  </header>
 
-  <form id="suggestionForm">
-    <input type="hidden" name="access_key" value="8da1488f-83d5-4579-8419-3d04d139efc1">
-    <input type="text" name="name" placeholder="Your Name (optional)">
-    <textarea name="message" placeholder="Your Suggestion" required></textarea>
-    <button type="submit">Send Suggestion</button>
-    <div id="status"></div>
-  </form>
+  <main>
+    <form id="suggestionForm" aria-label="Suggestion Form">
+      <input type="hidden" name="access_key" value="8da1488f-83d5-4579-8419-3d04d139efc1" />
+
+      <label for="name">Your Name (optional)</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" />
+
+      <label for="message">Your Suggestion</label>
+      <textarea id="message" name="message" placeholder="Write your suggestion here..." required></textarea>
+
+      <button type="submit">Send Suggestion</button>
+      <div id="status" role="status" aria-live="polite"></div>
+    </form>
+  </main>
 
   <footer>
-    &copy; 2025 Gomorron Suggestions. Built with ❤️ by <a href="#">Gomorronmannen</a>.
+    <p>&copy; 2025 <strong>Gomorron Suggestions</strong>. Built with ❤️ by 
+      <a href="https://github.com/Gomorronmannen" target="_blank" rel="noopener noreferrer">Gomorronmannen</a>.
+    </p>
   </footer>
 
   <script>
-    const form = document.getElementById('suggestionForm');
-    const status = document.getElementById('status');
+    const form = document.getElementById("suggestionForm");
+    const status = document.getElementById("status");
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault(); // prevent default page reload
-
-      const formData = new FormData(form);
-      status.textContent = 'Submitting…';
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      status.textContent = "Submitting…";
 
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: formData
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: new FormData(form),
         });
         const json = await res.json().catch(() => ({}));
 
-        if (res.status === 200 || json.success) {
-          status.textContent = 'Suggestion submitted! Thank you!';
-          form.reset(); // clear the form
+        if (res.ok && json.success) {
+          status.textContent = "✅ Suggestion submitted! Thank you!";
+          form.reset();
         } else {
-          status.textContent = 'Submission failed — please try again.';
+          status.textContent = "❌ Submission failed — please try again.";
         }
-      } catch (err) {
-        status.textContent = 'Network error — submission failed.';
+      } catch {
+        status.textContent = "⚠️ Network error — submission failed.";
       }
     });
   </script>
-
 </body>
 </html>
